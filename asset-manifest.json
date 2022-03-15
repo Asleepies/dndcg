@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/dndcg/static/css/main.36d5ff84.css",
+    "main.js": "/dndcg/static/js/main.e9ee3c6d.js",
+    "index.html": "/dndcg/index.html",
+    "main.36d5ff84.css.map": "/dndcg/static/css/main.36d5ff84.css.map",
+    "main.e9ee3c6d.js.map": "/dndcg/static/js/main.e9ee3c6d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.36d5ff84.css",
+    "static/js/main.e9ee3c6d.js"
+  ]
+}
