@@ -1,6 +1,7 @@
 import React from 'react';
 import {Attributes} from './Attributes.js'
 
+
 export const JobDisplay = (props) => {
   const jData = props.jData
   const [cn, pn] = props.names
@@ -21,7 +22,7 @@ export const JobDisplay = (props) => {
 
       <Attributes job={props.job} attributes={attributes} onChange={handleChange}/>
       
-      <div className="crossSection">
+      <div className="crossSection" id="hd-saves-profbonus">
         <div>
           <h6>Hit Die:</h6>
           <div>D{jData.hit_die}</div>
@@ -36,8 +37,8 @@ export const JobDisplay = (props) => {
         </div>
       </div>
 
-      <div className="crossSection">
-        <div>
+      <div className="crossSection" id='spell-feature'>
+        {jData.spellcasting.spellcasting_ability ? (<div>
           <h6>Spellcasting: {jData.spellcasting.spellcasting_ability.name}</h6>
           {Object.keys(jData.levels.spellcasting).map((k) => 
             k === "cantrips_known" ? <div key={k}>Cantrips: {jData.levels.spellcasting[k]}</div>
@@ -45,7 +46,7 @@ export const JobDisplay = (props) => {
             : jData.levels.spellcasting[k] ? <div key={k}>Level {k.slice(-1)} slots: {jData.levels.spellcasting[k]}</div>
             : null
           )}
-        </div>
+        </div>) : null}
         <div>
           <h6>Features: </h6>
           {jData.levels.features.map((f) => 
@@ -53,26 +54,38 @@ export const JobDisplay = (props) => {
         </div>  
       </div>
 
-      <div className="crossSection">
+      <div className="crossSection" id='equipment'>
         <div>
           <h6>Starting Equipment</h6>  
-          {jData.starting_equipment.map(item => ( item.equipment? 
+          {jData.starting_equipment.map(item => ( item.equipment ? 
           <div key={item.equipment.index}>{item.equipment.name}</div> : null))}
         </div>
 
         {jData.action === 'user' ? jData.starting_equipment_options.map((choice, i) => (
         <div key={`${choice.type}Choices${i}`}>
           <h6>Choose {choice.choose} </h6>
-          {choice.from.map((item, i) => ( item.equipment ? 
-          <div key={item.equipment.index}>{item.equipment.name}</div> 
-          : item.equipment_option ? <div key={item.equipment_option.from.equipment_category.index}>{item.equipment_option.from.equipment_category.name}</div> 
+          {choice.from.map((item, i) => ( 
+          
+          item.equipment ? 
+          <div key={item.equipment.index}>{item.equipment.name}</div>
+          
+          : item.equipment_option ? 
+          <div key={item.equipment_option.from.equipment_category.index}>{item.equipment_option.from.equipment_category.name}</div> 
+          
+          : item[0] ? (
+          <div key={`ecSet${i}`}>set
+            {/* {makeSet(item)} */}
+            {Object.entries(item).map(([k,v], i) => (<div key={i}>{v.equipment_option? v.equipment_option.from.equipment_category.name: v.equipment.name }</div>))} 
+          </div>
+          )
+          
           : <div key={`ec${i}`}>farts</div>)
           )}
         </div>
           )) : null}
       </div>
 
-      <div className="crossSection">
+      <div className="crossSection" id='proficiencies'>
         <div>
           <h6>Proficiencies:</h6>  
           {jData.proficiencies.map(prof => (
@@ -93,9 +106,10 @@ export const JobDisplay = (props) => {
   ) : (
 
     <div>
-      {cn ? <h3>{cn} the {props.job ? props.job : "Celibate"}</h3> 
-          : <h3>Mr. Wizard the {props.job ? props.job : "Celibate"}</h3>}
-      {pn ? <h4>{pn}</h4> : <h4>Mr Kyle</h4>}
+      {cn ? (<div className='crossSection'><h3>{cn} the {jData.name ? jData.name: "Celibate"}</h3><h4>Lvl{lvl}</h4></div>) 
+          : (<div className='crossSection'><h3>Mr. Wizard the {jData.name ? jData.name : "Celibate"}</h3><h4>--Lvl {lvl}</h4></div>)
+          }
+      {pn ? <h4 className="plyrName">{pn}</h4> : <h4 className="plyrName">Mr Kyle</h4>}
     </div>
   )
 }
