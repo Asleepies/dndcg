@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import {CharacterInfo} from './containers/CharacterInfo.js'
+import {DiceBox} from './containers/DiceBox.js'
 
 
 const CharacterSheet = (props) => {

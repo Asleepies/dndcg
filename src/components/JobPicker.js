@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const JobPicker = (props) => {
-  const jobList = ["Barbarian", "Bard", "Claric", "Druid", "Fighter", "Monk",
+  const jobList = ["Barbarian", "Bard", "Cleric", "Druid", "Fighter", "Monk",
   "Paladin", "Ranger", "Rogue", "Sorcerer", "Warlock", "Wizard"];
   const changeJob = ({target}) => { 
     const newJob = target.value

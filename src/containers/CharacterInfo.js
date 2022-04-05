@@ -3,8 +3,8 @@ import React, {useState} from 'react'
 import {JobPicker} from '../components/JobPicker.js'
 import {RacePicker} from '../components/RacePicker.js'
 import {Names} from '../components/Names.js'
-import {JobFetcher} from '../components/JobFetcher.js'
-import {JobDisplay} from '../components/JobDisplay.js'
+import {Fetcher} from '../components/Fetcher.js'
+import {Display} from '../components/Display.js'
 
 
 export const CharacterInfo = (props) => {
@@ -19,6 +19,8 @@ export const CharacterInfo = (props) => {
   const raceChange = (newRace) => {
     setRace(newRace)
   }
+  const [raceInfo, setRaceInfo] = useState({})
+  
   
   const [job, setJob] = useState('')
   const jobChange = (newJob) => {
@@ -26,9 +28,11 @@ export const CharacterInfo = (props) => {
   }
   const [jobInfo, setJobInfo] = useState({})
   const jobFetch = (info) => {
-    const [job, lvl, action] = info;
-    job.levels = lvl
-    job.action = action
+    const [job, lvl, race, spells, action] = info;
+    job.levels = lvl;
+    job.action = action;
+    job.spellList = spells
+    if (race) { setRaceInfo(race) }
     setJobInfo(job)
   }
 
@@ -47,9 +51,9 @@ export const CharacterInfo = (props) => {
       <Names names={[characterName, playerName]} onChange={nameChange} />
       <RacePicker race={race} onChange={raceChange}/>
       <JobPicker job={job} onChange={jobChange}/>
-      <JobFetcher job={job} jdata={jobInfo} onClick={jobFetch}/>
+      <Fetcher job={job} race={race} onClick={jobFetch}/>
       {Object.keys(jobInfo).length > 0 ? 
-        <JobDisplay job={job} names={[characterName,playerName]} attributes={[attributes, attChange]} jData={jobInfo}/> 
+        <Display char={[job,race]} names={[characterName,playerName]} attributes={[attributes, attChange]} jData={jobInfo} rData={raceInfo}/> 
         : null}
     </div>
   )

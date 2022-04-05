@@ -23,3 +23,7 @@ body {
 .chrName {
   margin-bottom: 0;
 }
+
+.spellLevels {
+  display: flex;
+}

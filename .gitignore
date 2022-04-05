@@ -21,3 +21,16 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+DnDChars/assets/Character Sheet (Alternative).pdf
+DnDChars/react-frompPortfolio/components/ActionMenu.js
+DnDChars/react-frompPortfolio/components/Attributes.js
+DnDChars/react-frompPortfolio/components/JobDisplay.js
+DnDChars/react-frompPortfolio/components/JobFetcher.js
+DnDChars/react-frompPortfolio/components/JobPicker.js
+DnDChars/react-frompPortfolio/components/Names.js
+DnDChars/react-frompPortfolio/components/RacePicker.js
+DnDChars/react-frompPortfolio/containers/CharacterInfo.js
+DnDChars/react-frompPortfolio/containers/test.js
+DnDChars/wip/bard.json
+DnDChars/wip/fighter.json
+DnDChars/wip/wip.js
