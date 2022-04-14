@@ -1,0 +1,2 @@
+- SIMPLIFY. selection at the beginning closer to the dm assistant. 
+It's own componenet with it's own state, constructs a player object and sends it back

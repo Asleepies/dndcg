@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
-// import {Attributes} from '../components/Attributes.js'
 import {JobPicker} from '../components/JobPicker.js'
 import {RacePicker} from '../components/RacePicker.js'
 import {Names} from '../components/Names.js'
 import {Fetcher} from '../components/Fetcher.js'
 import {Display} from '../components/Display.js'
+// import {Attributes} from '../components/Attributes.js'
 
 
 export const CharacterInfo = (props) => {
@@ -57,4 +57,19 @@ export const CharacterInfo = (props) => {
         : null}
     </div>
   )
+}
+
+export const CharacterSheet = (props) => {
+  const [isStart, setIsStart] = useState(false)
+  const handleStart = () => {
+    isStart ? setIsStart(false) : setIsStart(true)
+  }
+  return (
+    <div>
+      <h1>Let's Make an Adventurer!</h1>
+      
+      <CharacterInfo onClick={handleStart}/>
+
+    </div>
+    )
 }

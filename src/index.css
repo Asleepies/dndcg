@@ -1,29 +1,23 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
-  
 }
-
 .attInput {
   max-width: 3em;
   margin: .5em;
 }
-
 .crossSection {
   display: flex;
 }
 .crossSection div {
   margin: 0 .25em;
 }
-
 .plyrName {
   margin-top: 0;
 }
-
 .chrName {
   margin-bottom: 0;
 }
-
 .spellLevels {
   display: flex;
 }

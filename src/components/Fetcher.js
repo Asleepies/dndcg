@@ -13,7 +13,7 @@ export const Fetcher = (props) => {
   const lvl = 1;
 
   const randomChar = (data) => {
-    const [jobData, lvl, race, action] = data;
+    const [jobData, lvl, race, spells, action] = data;
 
     let equipmentOptions = [...jobData.starting_equipment_options]
     delete jobData.starting_equipment_options
@@ -41,8 +41,29 @@ export const Fetcher = (props) => {
       race.starting_proficiencies.push(rOptions.from.splice(choice,1)[0])
     }
 
-    console.log([jobData,lvl,race,action])
-    props.onClick([jobData,lvl,race,action])
+    if (spells) {
+      spells.forEach(l => {
+      let num = l[1]; 
+      if (Object.keys(lvl).includes('spellcasting')) {
+        if (Object.keys(lvl.spellcasting).includes('spells_known')) { 
+          num = lvl.spellcasting.spells_known }
+        if (l[0] === 0) { num = l[1]}
+      }
+      // const num = l[1];
+      const choices = []
+      for (let i=0; i < num; i++) {
+        let pick = Math.floor(Math.random() * l.length)
+        if (pick < 2) { pick += 2 } 
+        choices.push(l.splice(Math.floor(Math.random() * l.length+2),1)[0])
+        console.log(choices)
+      }
+      l.splice(2,l.length)
+      choices.forEach(c => l.push(c))
+    })
+  }
+
+    console.log([jobData,lvl,race,spells,action])
+    props.onClick([jobData,lvl,race,spells,action])
   }
 
   const jobFetch = async() => {
@@ -55,11 +76,18 @@ export const Fetcher = (props) => {
     try {
       const resClass = await fetch(epClass);
       const resLvl = await fetch(epLevels);
-      const resRace = race ? await fetch(epRace) : null;  
+      const resRace = race ? await fetch(epRace) : null;
+
       if (resClass.ok && resLvl.ok) {
-        const jResRace = resRace.ok ? await resRace.json() : null;
+
+        let jResRace = {};
+        if (resRace) {
+          jResRace = resRace.ok ? await resRace.json() : null;
+        }
+
         const jResClass = await resClass.json();
         const jResLvl = await resLvl.json();
+
         const spells = Object.keys(jResLvl).includes('spellcasting') ? jResLvl.spellcasting : null;
         const spellChoices = []
         if (spells) {
@@ -91,9 +119,9 @@ export const Fetcher = (props) => {
           }
         }
 
-        jResRace ? console.log(jResRace) : console.log('why');
+        // jResRace ? console.log(jResRace) : console.log('why');
         action === "user" ? props.onClick([jResClass, jResLvl, jResRace, spellChoices, action]) 
-          : randomChar([jResClass, jResLvl, jResRace, action])
+          : randomChar([jResClass, jResLvl, jResRace, spellChoices, action])
       }   
     } catch (err) {
       console.log(err)

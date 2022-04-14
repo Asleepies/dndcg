@@ -57,12 +57,14 @@ export const Display = (props) => {
         </div>
         <div>
           <h6>Speed:</h6>
-          <div>{rData ? `${rData.speed}ft.` : null}</div>
+          <div>{Object.keys(rData).length > 0  ? `${rData.speed}ft.` : null}</div>
         </div>
-        <div>
+        {Object.keys(rData).length > 0 ? 
+        (<div>
           <h6>Racial Ability Bonus:</h6>
-          {rData ? rData.ability_bonuses.map(b => <div key={`bonus${b.ability_score.index}`}>{b.ability_score.name} +{b.bonus}</div>) : null}          
-        </div>        
+          {rData.ability_bonuses.map(b => 
+          <div key={`bonus${b.ability_score.index}`}>{b.ability_score.name} +{b.bonus}</div>)}          
+        </div>) : null }        
         <div>
           <h6>Size:</h6>
           <div>{rData ? rData.size : null}</div>
@@ -70,19 +72,20 @@ export const Display = (props) => {
       </div>
 
       <div className="crossSection" id='feature-traits'>
-        {rData ? (<div>
+        {Object.keys(rData).length > 0 ? (<div>
           <h6>Traits:</h6>
           {rData.traits.map((t) => <div key={t.index}>{t.name}</div>)}
-        </div>) : <div>Pick a race</div>}
+        </div>) : null}
+        {/* </div>) : <div>Pick a race</div>} */}
         <div>
           <h6>Features: </h6>
           {jData.levels.features.map((f) => f.index.includes("spellcasting") ? null 
           : <div key={f.index}>{f.name}</div>)}
         </div>
-        <div>
-          <h6>Languages</h6>
+        {Object.keys(rData).length > 0 ? <div>
+          <h6>Languages:</h6>
           {rData.languages.map((l) => <div key={l.index}>{l.name}</div>)}
-        </div>
+        </div> : null}
       </div>
 
       <div className="crossSection" id='subRaces'>
@@ -92,11 +95,12 @@ export const Display = (props) => {
           <div>{jData.subclasses[0].name}</div>
         </div>
 
-        {rData.subraces.length > 0 ? 
-        <div>
+        {(Object.keys(rData).length > 0 && rData.subraces.length > 0) ? 
+        (<div>
           <h6>Sub Race: </h6>
           <div>{rData.subraces[0].name}</div>
-        </div> : null}
+        </div>) 
+        : null}
       </div>
 
 
@@ -121,7 +125,8 @@ export const Display = (props) => {
           : item[0] ? (
           <div key={`ecSet${i}`}>set
             {/* {makeSet(item)} */}
-            {Object.entries(item).map(([k,v], i) => (<div key={i}>{v.equipment_option? v.equipment_option.from.equipment_category.name: v.equipment.name }</div>))} 
+            {Object.entries(item).map(([k,v], i) => 
+            (<div key={i}>{v.equipment_option? v.equipment_option.from.equipment_category.name: v.equipment.name }</div>))} 
           </div>
           )
           
@@ -136,7 +141,7 @@ export const Display = (props) => {
           <h6>Proficiencies:</h6>  
           {jData.proficiencies.map(prof => (
           <div key={prof.index}>{prof.name}</div>))}
-          {rData ? rData.starting_proficiencies.map(prof => (
+          {Object.keys(rData).length > 0 ? rData.starting_proficiencies.map(prof => (
             <div key={prof.index}>{prof.name}</div>
           )): null}
         </div>

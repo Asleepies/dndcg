@@ -1,28 +1,34 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {CharacterInfo} from './containers/CharacterInfo.js'
-import {DiceBox} from './containers/DiceBox.js'
+import {CharacterInfo, CharacterSheet} from './containers/CharacterInfo.js'
+import {DiceBox} from './dicebox/DiceBox.js'
+import {DMAssist} from './dmassist/DMAssist.js'
 
 
-const CharacterSheet = (props) => {
-  const [isStart, setIsStart] = useState(false)
-  const handleStart = () => {
-    isStart ? setIsStart(false) : setIsStart(true)
+const NavBar = (props) => {
+  const [page, setPage] = useState(<CharacterSheet />)
+  const pageChange = ({target}) => {
+    setPage(pages[target.id[1]])
   }
+  const pages = [<CharacterSheet />, <DiceBox />, <DMAssist />]
   return (
     <div>
-      <h1>Let's Make an Adventurer!</h1>
-      
-      <CharacterInfo onClick={handleStart}/>
-
+      <div>
+        {/* <button onClick={pageChange} id='p0'>Character Assistant</button>
+        <button onClick={pageChange} id='p1'>Dice Box</button>
+        <button onClick={pageChange} id='p2'>DM Assist</button> */}
+      </div>
+      {page}
     </div>
-    )
+  )
 }
+
+
 
 // ========================================
 
 ReactDOM.render(
-  <CharacterSheet />,
+  <NavBar />,
   document.getElementById('root')
 );
