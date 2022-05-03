@@ -1,27 +1,8 @@
 import React, {useState} from 'react';
 
-export const NewPlayer = (props) => {
-  const [pc, setPc] = useState(null)
+export const NewCharacter = (props) => {
+  // const [pc, setPc] = useState(null)
 
-
-  const styles = {
-    box: {
-      position: 'relative',
-      width: '23em',
-      // height: '6em',
-      padding: '.5%',
-      border: '1px solid blue'
-    },
-    name: {
-      margin: '0'
-    },
-    cancelButton: {
-      position: 'absolute',
-      top: '1%',
-      right: '1%'
-    }
-  }
-  
   const [name, setName] = useState('')
   const nameChange = ({target}) => {
     const newName = target.value
@@ -75,73 +56,66 @@ export const NewPlayer = (props) => {
     </select>
   )
 
-  const [hp, setHp] = useState(0)
-  const hpChange = ({target}) => {
-    setHp(target.value)
+  const [level, setLevel] = useState(1)
+  const levelChange = ({target}) => {
+    setLevel(target.value)
   }
-  const hpInput = (
+  const levelInput = (
     <div>
-      <label> HP:
-        <input type="number" value={hp} onChange={hpChange}></input>
+      <label> Level:
+        <input type="number" value={level} onChange={levelChange} className='statInput'/>
       </label>
     </div>
   )
 
-  const [attributes, setAttributes] = useState({
+  const [stats, setStats] = useState({
       Str: 10, Dex: 10, Con: 10, Int: 10, Wis: 10, Cha: 10 })
-  const attChange = ({target}) => {
-    const newAtts = {...attributes}
-    newAtts[target.id] = target.value
-    setAttributes(newAtts)
+  const statChange = ({target}) => {
+    const tempStats = {...stats}
+    tempStats[target.id] = target.value
+    setStats(tempStats)
   }
-  const attInput = (
-    <div>
-      {Object.keys(attributes).map(att => (
-      <label key={`${att}-lab`}>{att}:
-        <input type="number" className="attInput" key={att} id={att} value={attributes[att]} onChange={attChange}/>
-      </label>))}
-    </div>
-  )
+  const statsRoll = () => {
+    let tempStats = {}
+    for (let stat of Object.keys(stats)) { 
+      tempStats[stat] = Math.floor(Math.random() * (19 - 8) + 8);
+    }
+    setStats(tempStats)
+  }
+  const statsInput = (
+    <div className='newStats'>
+      <button onClick={statsRoll}>Roll Stats</button>
+      <div className='newStatDiv'>
+        {Object.keys(stats).map(stat => (
+        <div key={`${stat}div`} className='statBlock'>
+          <h6 className='newSLabel'>{stat}:</h6>
+          <input type="number" className="statInput" id={stat} value={stats[stat]} onChange={statChange}/>
+        </div>))}
 
-  const [ac, setAC] = useState(10)
-  const acChange = ({target}) => {
-    setAC(target.value)
-  }
-  const acInput = (
-    <div>
-      <label> AC:
-        <input type="number" value={ac} onChange={acChange}/>
-      </label>
+      </div>
     </div>
-  )
+)
 
   const createPlayer = () => {
     const newPlayer = {
-      // id: props.id,
       name: name,
       player: player,
       job: job,
       race: race,
-      hp: hp,
-      attributes: attributes
+      level: level,
+      stats: stats
     }
-    props.onAdd(newPlayer,props.id)
-  }
-
-  const cancelAdd = () => {
-    props.onCancel(props.id)
+    props.onStart(newPlayer)
   }
 
   return (
-    <div style={styles.box}>
+    <div className='box'>
       {namesInput}
       {jobSelect}
       {raceSelect}
-      {hpInput}
-      {acInput}
-      {attInput}
+      {levelInput}
+      {statsInput}
       <button onClick={createPlayer}>Save</button>
-      <button onClick={cancelAdd} style={styles.cancelButton}>X</button>
     </div>
   )
 }

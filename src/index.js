@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {CharacterInfo, CharacterSheet} from './containers/CharacterInfo.js'
+import {CharacterSheet} from './containers/CharacterSheet.js'
 import {DiceBox} from './dicebox/DiceBox.js'
 import {DMAssist} from './dmassist/DMAssist.js'
 
@@ -15,9 +15,9 @@ const NavBar = (props) => {
   return (
     <div>
       <div>
-        {/* <button onClick={pageChange} id='p0'>Character Assistant</button>
+        <button onClick={pageChange} id='p0'>Character Assistant</button>
         <button onClick={pageChange} id='p1'>Dice Box</button>
-        <button onClick={pageChange} id='p2'>DM Assist</button> */}
+        <button onClick={pageChange} id='p2'>DM Assist</button>
       </div>
       {page}
     </div>

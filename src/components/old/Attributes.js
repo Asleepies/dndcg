@@ -26,7 +26,7 @@ export const Attributes = (props) => {
     <div>
       {Object.keys(a).map(att => (
           <label key={`${att}-lab`}>{att}:
-            <input type="number" className="attInput" key={att} id={att} value={a[att]} onChange={attChange}/>
+            <input type="number" className="statInput" key={att} id={att} value={a[att]} onChange={attChange}/>
           </label>
       ))}
       <button onClick={randomAtts}>Random</button>

@@ -2,9 +2,7 @@ import React from 'react';
 import {Attributes} from './Attributes.js'
 
 const Spells = (props) => {
-  
   const spells = props.spells
-
   return (
     <div className="spellLevels">
       {spells.map(l => (
@@ -162,7 +160,6 @@ export const Display = (props) => {
           : null}
           
       </div>
-
 
       {jData.spellcasting ? ( 
       <div className="crossSection" id='spell'>

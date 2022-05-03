@@ -1,11 +1,9 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
+  background-color: white;
 }
-.attInput {
-  max-width: 3em;
-  margin: .5em;
-}
+
 .crossSection {
   display: flex;
 }
@@ -20,4 +18,60 @@ body {
 }
 .spellLevels {
   display: flex;
+}
+.box {
+  position: relative;
+  width: 30em;
+  padding: .5%;
+}
+.name {
+  margin: 0;
+}
+.newStats {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  
+}
+.newStatDiv {
+  border: 1px solid blue;
+  width: 100%;
+  display: flex;
+  justify-content: space-around ;
+}
+.newSLabel {
+  margin: 0;
+}
+.statInput {
+  max-width: 4em;
+  margin: .5em;
+}
+.statsDiv {
+  display: flex;
+  justify-content: space-around;
+}
+.statBlock {
+  text-align: center;
+}
+.statPush {
+  margin: 1%
+}
+.removeButton {
+  position: absolute;
+  top: 1%;
+  right: 1%;
+}
+
+@media only screen and (max-width: 750px) {
+  #Sheet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .box {
+    width: 108%;
+  }
+  .statInput {
+    max-width: 2.26em;
+  }
 }
